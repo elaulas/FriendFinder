@@ -9,11 +9,13 @@ var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({ extended: false});
 
 app.use(bodyParser.json({ type: 'application/**json' }));
-
 app.use(bodyParser.raw({ type: 'application/vnd.custom-type' }));
-
 app.use(bodyParser.text({ type: 'text/html' }));
 
+
+
+
+
 app.listen(PORT, function(){
-    console.log("App Listening on PORT: " + PORT);
+    console.log("App listening on PORT: " + PORT);
 });
