@@ -19,7 +19,7 @@
 <input type="text" name="" id="name" class="form-control" required><br>
 
 <h4>Link to Photo Image (Required)</h4>
-<input type="text" name="" id="phot" class="form-control" required><hr>
+<input type="text" name="" id="photo" class="form-control" required><hr>
 
 <h3><b>Question 1</b></h3>
 <h4>Your mind is always buzzing with unexplored ideas and plans.</h4>
@@ -126,11 +126,30 @@
 <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"</i> Submit</i></button><hr>
 
 <footer>
-<a href="#">API Friends List</a><span> | </span>
+<a href="/api/friends">API Friends List</a><span> | </span>
 <a href="#">GitHub Repo</a>
 </footer>
     </div>
-
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="text-align: center;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Best Match</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h2 id="perfectName"></h2>
+              <img id="perfectImg" src="" alt="">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 
@@ -139,8 +158,43 @@
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+
+<script>
+
+    $('#submit').on('click', function(){
+    var userData = {
+        name: $('#name').val(),
+        photo: $('#photo').val(),
+        scores: [
+            $('#q1').val(),
+            $('#q2').val(),
+            $('#q3').val(),
+            $('#q4').val(),
+            $('#q5').val(),
+            $('#q6').val(),
+            $('#q7').val(),
+            $('#q8').val(),
+            $('#q9').val(),
+            $('#q10').val()
+        ]
+    };
+
+    var currentURL = window.location.origin;
+    $.post(currentURL + '/api/friends', userData, function(data) {
+        
+        $('#perfectName').text(data.name);
+        $('#perfectImg').attr('src', data.photo);
+        $('#perfectImg').attr('style', 'width: 250px');
+
+        $("#myModal").modal("toggle");
+
+    })
+});
+</script>
 
 </body>
 </html>
